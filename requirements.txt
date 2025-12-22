@@ -6,5 +6,4 @@ wordcloud
 pandas
 emoji
 plotly.express
-regex
-collections
+
