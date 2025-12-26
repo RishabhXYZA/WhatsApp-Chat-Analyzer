@@ -5,6 +5,6 @@ urlextract
 wordcloud
 pandas
 emoji
-plotly
+plotly.express
 pillow
 numpy
