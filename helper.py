@@ -3,8 +3,8 @@ from wordcloud import WordCloud
 import pandas as pd
 from collections import Counter
 import emoji
-
-
+import numpy as np
+from PIL import Image
 
 extract=URLExtract()
 def fetch_stats(selected_user,df):
@@ -34,7 +34,7 @@ def most_busy_users(df):
         rename(columns={'user':'Name','count':'Percent'}))
     return x,df
 
-def create_wordcloud(selected_user,df):
+def create_wordcloud(selected_user,df,mask_image=None):
     f = open('stop_hinglish.txt', 'r')
     stopwords = f.read()
 
@@ -52,11 +52,31 @@ def create_wordcloud(selected_user,df):
             if word not in stopwords:
                 y.append(word)
         return " ".join(y)
-
+    temp['message'] = temp['message'].apply(remove_stop_words)
 
     #Configure a WordCloud object using Wordcloud Class
-    wc=WordCloud(width=500,height=500,min_font_size=10,background_color='white')
-    temp['message']=temp['message'].apply(remove_stop_words)
+    wc_params={"width":1000,
+               "height":1000,
+               "min_font_size":10,
+               "background_color":'white'}
+    if mask_image is not None:
+        # Load the image and force RGBA (fixes "Bad transparency mask" error)
+        icon=Image.open(mask_image).convert("RGBA")
+        new_size = (1000, 1000)
+        icon = icon.resize(new_size, Image.Resampling.LANCZOS)
+        # Create a white background to replace transparency
+        white_bg = Image.new("RGB", icon.size, (255, 255, 255))
+        white_bg.paste(icon, (0, 0), icon)
+
+        # Convert to numpy array for WordCloud
+        mask_array = np.array(white_bg)
+
+        # Add mask-specific parameters
+        wc_params["mask"] = mask_array
+        wc_params["contour_width"] = 3
+        wc_params["contour_color"] = 'black'
+        wc_params["max_words"]=60
+    wc=WordCloud(**wc_params)
     df_wc= wc.generate(temp['message'].str.cat(sep=" "))
     return df_wc
 
@@ -137,3 +157,4 @@ def activity_heatmap(selected_user,df):
     ).fillna(0)
 
     return user_activity_heatmap
+
