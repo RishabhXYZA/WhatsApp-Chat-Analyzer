@@ -198,7 +198,7 @@ Contributions that improve features, performance, or documentation are welcome. 
 }
 ```
 
-## Try it LIVE
+## 🔗 Try it LIVE
 https://whatsapp-chat-analyzer-
 
 
