@@ -199,7 +199,7 @@ Contributions that improve features, performance, or documentation are welcome. 
 ```
 
 ## 🔗 Try it LIVE
-(https://whatsapp-chat-analyzer-4-yrur.onrender.com)
+https://whatsapp-chat-analyzer-4-yrur.onrender.com
 
 
 ## ⚖️ License
