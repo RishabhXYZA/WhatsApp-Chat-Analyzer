@@ -202,10 +202,5 @@ Contributions that improve features, performance, or documentation are welcome. 
 https://whatsapp-chat-analyzer-
 
 
-Uploading streamlit-google-chrome-2025-12-26-21-22-29_a5zYAIze.mp4…
-
-
-
-
 ## ⚖️ License
 This project is licensed under the MIT License. See the LICENSE file for the full legal text. 📝
